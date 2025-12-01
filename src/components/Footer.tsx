@@ -81,7 +81,7 @@ export function Footer() {
             © {new Date().getFullYear()} Haseeb. All rights reserved.
           </p>
           <p className="text-sm text-muted-foreground flex items-center gap-1">
-            Crafted with <Heart className="w-4 h-4 text-destructive fill-destructive" /> by Haseeb
+            Crafted by Haseeb
           </p>
         </div>
       </div>
