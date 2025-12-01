@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { ExternalLink, Github, Smartphone, Globe, Code } from "lucide-react";
+import { ExternalLink, Github, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const categories = ["All", "Mobile Apps", "Web Apps", "WordPress"];
 
@@ -207,6 +208,25 @@ export function ProjectsSection() {
             <ProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>
+
+        {/* View All Projects Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="text-center mt-12"
+        >
+          <Link to="/projects">
+            <motion.button
+              whileHover={{ scale: 1.05, x: 5 }}
+              whileTap={{ scale: 0.98 }}
+              className="inline-flex items-center gap-2 px-8 py-4 font-semibold text-primary border-2 border-primary rounded-xl hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+            >
+              View All Projects
+              <ArrowRight className="w-5 h-5" />
+            </motion.button>
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
