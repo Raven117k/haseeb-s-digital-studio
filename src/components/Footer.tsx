@@ -18,12 +18,12 @@ const quickLinks = [
 
 export function Footer() {
   return (
-    <footer className="py-16 border-t border-border relative overflow-hidden">
+    <footer className="py-10 sm:py-16 border-t border-border relative overflow-hidden">
       {/* Background Glow */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-32 bg-primary/5 blur-3xl" />
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="grid md:grid-cols-3 gap-12 mb-12">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-12 mb-8 sm:mb-12">
           {/* Brand */}
           <div>
             <motion.a
