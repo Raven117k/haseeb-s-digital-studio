@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import { Send, Mail, MapPin, Phone, CheckCircle } from "lucide-react";
+import { motion, useInView, useScroll, useTransform, useSpring } from "framer-motion";
+import { Send, Mail, MapPin, Phone } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 export function ContactSection() {
@@ -13,7 +13,18 @@ export function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const ref = useRef(null);
+  const sectionRef = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const bgScale1 = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1.2, 0.8]);
+  const bgScale2 = useTransform(scrollYProgress, [0, 0.5, 1], [1.2, 0.8, 1.2]);
+  const smoothBgScale1 = useSpring(bgScale1, { stiffness: 100, damping: 30 });
+  const smoothBgScale2 = useSpring(bgScale2, { stiffness: 100, damping: 30 });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,10 +52,16 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-16 sm:py-32 bg-secondary/30 relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+    <section ref={sectionRef} id="contact" className="py-16 sm:py-32 bg-secondary/30 relative overflow-hidden">
+      {/* Background Elements with Parallax */}
+      <motion.div 
+        style={{ scale: smoothBgScale1 }}
+        className="absolute top-0 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" 
+      />
+      <motion.div 
+        style={{ scale: smoothBgScale2 }}
+        className="absolute bottom-0 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl" 
+      />
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}

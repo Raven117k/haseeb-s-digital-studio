@@ -1,10 +1,26 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { ArrowDown, Sparkles } from "lucide-react";
 import { Hero3D } from "./Hero3D";
 
 export function HeroSection() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
+  
+  const smoothY = useSpring(y, { stiffness: 100, damping: 30 });
+  const smoothOpacity = useSpring(opacity, { stiffness: 100, damping: 30 });
+  const smoothScale = useSpring(scale, { stiffness: 100, damping: 30 });
+
   return (
     <section
+      ref={ref}
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden hero-gradient"
     >
@@ -14,8 +30,11 @@ export function HeroSection() {
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/30 to-background pointer-events-none" />
 
-      {/* Content */}
-      <div className="container mx-auto px-6 relative z-10">
+      {/* Content with Parallax */}
+      <motion.div 
+        style={{ y: smoothY, opacity: smoothOpacity, scale: smoothScale }}
+        className="container mx-auto px-6 relative z-10"
+      >
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
           <motion.div
@@ -99,7 +118,7 @@ export function HeroSection() {
             </motion.a>
           </motion.div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Scroll Indicator */}
       <motion.div

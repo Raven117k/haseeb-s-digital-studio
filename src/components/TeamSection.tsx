@@ -1,6 +1,6 @@
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import { Twitter, Linkedin, Github, Mail } from "lucide-react";
+import { motion, useInView, useScroll, useTransform, useSpring } from "framer-motion";
+import { Twitter, Linkedin, Github } from "lucide-react";
 
 const team = [
   {
@@ -104,13 +104,30 @@ function TeamCard({ member, index }: { member: typeof team[0]; index: number }) 
 
 export function TeamSection() {
   const ref = useRef(null);
+  const sectionRef = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const bgRotate1 = useTransform(scrollYProgress, [0, 1], [0, 45]);
+  const bgRotate2 = useTransform(scrollYProgress, [0, 1], [0, -45]);
+  const smoothBgRotate1 = useSpring(bgRotate1, { stiffness: 100, damping: 30 });
+  const smoothBgRotate2 = useSpring(bgRotate2, { stiffness: 100, damping: 30 });
+
   return (
-    <section id="team" className="py-16 sm:py-32 relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute top-1/3 right-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl translate-x-1/2" />
-      <div className="absolute bottom-1/4 left-0 w-80 h-80 bg-accent/5 rounded-full blur-3xl -translate-x-1/2" />
+    <section ref={sectionRef} id="team" className="py-16 sm:py-32 relative overflow-hidden">
+      {/* Background Elements with Parallax */}
+      <motion.div 
+        style={{ rotate: smoothBgRotate1 }}
+        className="absolute top-1/3 right-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl translate-x-1/2" 
+      />
+      <motion.div 
+        style={{ rotate: smoothBgRotate2 }}
+        className="absolute bottom-1/4 left-0 w-80 h-80 bg-accent/5 rounded-full blur-3xl -translate-x-1/2" 
+      />
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}

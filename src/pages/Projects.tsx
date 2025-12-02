@@ -1,9 +1,10 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { ExternalLink, Github, ArrowLeft, Filter } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import Lenis from "lenis";
 
 const categories = ["All", "Mobile Apps", "Web Apps", "WordPress", "Custom Code"];
 
@@ -269,6 +270,26 @@ function ProjectCard({ project, index }: { project: typeof allProjects[0]; index
 export default function Projects() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [showFeaturedOnly, setShowFeaturedOnly] = useState(false);
+
+  // Initialize smooth scroll
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
 
   const filteredProjects = allProjects.filter((p) => {
     const categoryMatch = activeCategory === "All" || p.category === activeCategory;
