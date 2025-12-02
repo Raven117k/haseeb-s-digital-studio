@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform, useSpring } from "framer-motion";
 import { ExternalLink, Github, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -146,7 +146,18 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
 export function ProjectsSection() {
   const [activeCategory, setActiveCategory] = useState("All");
   const ref = useRef(null);
+  const sectionRef = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const bgX1 = useTransform(scrollYProgress, [0, 1], [-50, 50]);
+  const bgX2 = useTransform(scrollYProgress, [0, 1], [50, -50]);
+  const smoothBgX1 = useSpring(bgX1, { stiffness: 100, damping: 30 });
+  const smoothBgX2 = useSpring(bgX2, { stiffness: 100, damping: 30 });
 
   const filteredProjects =
     activeCategory === "All"
@@ -154,10 +165,16 @@ export function ProjectsSection() {
       : projects.filter((p) => p.category === activeCategory);
 
   return (
-    <section id="projects" className="py-32 bg-secondary/30 relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute top-1/2 left-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl -translate-x-1/2" />
-      <div className="absolute top-1/4 right-0 w-72 h-72 bg-accent/5 rounded-full blur-3xl translate-x-1/2" />
+    <section ref={sectionRef} id="projects" className="py-16 sm:py-32 bg-secondary/30 relative overflow-hidden">
+      {/* Background Elements with Parallax */}
+      <motion.div 
+        style={{ x: smoothBgX1 }}
+        className="absolute top-1/2 left-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl -translate-x-1/2" 
+      />
+      <motion.div 
+        style={{ x: smoothBgX2 }}
+        className="absolute top-1/4 right-0 w-72 h-72 bg-accent/5 rounded-full blur-3xl translate-x-1/2" 
+      />
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}

@@ -1,5 +1,4 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform, useSpring } from "framer-motion";
 import { useRef } from "react";
 import { Code2, Palette, Rocket, Zap } from "lucide-react";
 
@@ -61,13 +60,30 @@ function SkillBar({ name, level, color, delay }: { name: string; level: number; 
 
 export function AboutSection() {
   const ref = useRef(null);
+  const sectionRef = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const bgY1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const bgY2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const smoothBgY1 = useSpring(bgY1, { stiffness: 100, damping: 30 });
+  const smoothBgY2 = useSpring(bgY2, { stiffness: 100, damping: 30 });
+
   return (
-    <section id="about" className="py-16 sm:py-32 relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+    <section ref={sectionRef} id="about" className="py-16 sm:py-32 relative overflow-hidden">
+      {/* Background Elements with Parallax */}
+      <motion.div 
+        style={{ y: smoothBgY1 }}
+        className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" 
+      />
+      <motion.div 
+        style={{ y: smoothBgY2 }}
+        className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" 
+      />
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
