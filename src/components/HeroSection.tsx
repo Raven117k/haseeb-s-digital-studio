@@ -22,10 +22,10 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8"
+            className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6 sm:mb-8"
           >
-            <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-primary">
+            <Sparkles className="w-4 h-4 text-primary flex-shrink-0" />
+            <span className="text-xs sm:text-sm font-medium text-primary text-center">
               Full-Stack Developer & Creative Technologist
             </span>
           </motion.div>
@@ -35,7 +35,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-6 leading-tight"
+            className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-4 sm:mb-6 leading-tight"
           >
             Hi, I'm{" "}
             <span className="gradient-text">Haseeb</span>
@@ -46,7 +46,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl md:text-2xl text-muted-foreground mb-4 max-w-2xl mx-auto"
+            className="text-base sm:text-xl md:text-2xl text-muted-foreground mb-4 max-w-2xl mx-auto px-2"
           >
             A 19-year-old developer crafting stunning digital experiences
             with cutting-edge technologies
@@ -57,7 +57,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-wrap justify-center gap-3 mb-12"
+            className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12 px-2"
           >
             {["React", "Flutter", "Firebase", "MongoDB", "PHP", "MySQL"].map(
               (tech, index) => (
@@ -66,7 +66,7 @@ export function HeroSection() {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.8 + index * 0.1 }}
-                  className="px-4 py-1.5 text-sm font-medium bg-secondary rounded-full text-secondary-foreground"
+                  className="px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-medium bg-secondary rounded-full text-secondary-foreground"
                 >
                   {tech}
                 </motion.span>
@@ -79,11 +79,11 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4"
           >
             <motion.a
               href="#projects"
-              className="inline-flex items-center justify-center px-8 py-4 font-semibold text-primary-foreground bg-primary rounded-xl hover:opacity-90 transition-all duration-300 glow"
+              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 font-semibold text-primary-foreground bg-primary rounded-xl hover:opacity-90 transition-all duration-300 glow text-sm sm:text-base"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -91,7 +91,7 @@ export function HeroSection() {
             </motion.a>
             <motion.a
               href="#contact"
-              className="inline-flex items-center justify-center px-8 py-4 font-semibold text-foreground bg-secondary border border-border rounded-xl hover:bg-secondary/80 transition-all duration-300"
+              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 font-semibold text-foreground bg-secondary border border-border rounded-xl hover:bg-secondary/80 transition-all duration-300 text-sm sm:text-base"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
             >

@@ -107,34 +107,34 @@ export function TeamSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="team" className="py-32 relative overflow-hidden">
+    <section id="team" className="py-16 sm:py-32 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute top-1/3 right-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl translate-x-1/2" />
       <div className="absolute bottom-1/4 left-0 w-80 h-80 bg-accent/5 rounded-full blur-3xl -translate-x-1/2" />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
-          <span className="text-primary font-medium tracking-wider uppercase text-sm">
+          <span className="text-primary font-medium tracking-wider uppercase text-xs sm:text-sm">
             The Team
           </span>
-          <h2 className="text-4xl md:text-5xl font-heading font-bold mt-4 mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold mt-3 sm:mt-4 mb-4 sm:mb-6">
             Meet Our <span className="gradient-text">Experts</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto px-2">
             A versatile team of specialists (all roles performed by one
             dedicated developer) bringing your vision to life.
           </p>
         </motion.div>
 
         {/* Team Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
           {team.map((member, index) => (
             <TeamCard key={member.id} member={member} index={index} />
           ))}

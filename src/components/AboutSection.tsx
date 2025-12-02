@@ -64,35 +64,35 @@ export function AboutSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="about" className="py-32 relative overflow-hidden">
+    <section id="about" className="py-16 sm:py-32 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-12 sm:mb-20"
         >
-          <span className="text-primary font-medium tracking-wider uppercase text-sm">
+          <span className="text-primary font-medium tracking-wider uppercase text-xs sm:text-sm">
             About Me
           </span>
-          <h2 className="text-4xl md:text-5xl font-heading font-bold mt-4 mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold mt-3 sm:mt-4 mb-4 sm:mb-6">
             Passionate Developer &{" "}
             <span className="gradient-text">Problem Solver</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto px-2">
             At 19, I've already built a diverse portfolio spanning mobile apps,
             web applications, and full-stack solutions. I believe in writing
             clean code that makes a difference.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-16 items-start">
           {/* Left Column - Highlights */}
           <div className="space-y-8">
             <motion.div
